@@ -1,22 +1,36 @@
-# Calisthenics & Localized Nutrition Tracker
+# Mumbai Nutrition & Calisthenics Tracker
 
-A local-first web application designed to track strength-to-weight calisthenics progression and accurately log regional Indian diets and quick-commerce groceries.
+A local-first, high-density tracker built for Mumbai: quick-commerce (Blinkit/Zepto) grocery macros, custom recipe bases (makhani gravy, hung-curd marinades), and a calisthenics strength-to-weight engine that scores you against a shifting bodyweight baseline.
 
-## Overview
-Standard fitness applications primarily track raw weight lifted and generic western ingredients. They often fail to track relative bodyweight strength (Strength-to-Weight ratio) and lack accurate macro profiles for regional staples (e.g., precise macro splits for a 1:1 Ragi-Bajra flour mix, loose local paneer, or regional dairy products). 
+## Stack
 
-This application handles these specific use cases by combining a custom strength telemetry engine with a localized nutritional database, including parsing logic for quick-commerce platforms like Zepto and Blinkit.
+Vite · React 18 · TypeScript (strict) · Tailwind CSS · Zustand (localStorage persist) · Lucide icons. No backend — all data stays in your browser.
 
-## Core Features
-* **Strength-to-Weight (S2W) Engine:** Telemetry tracking for calisthenics (pull-ups, dips, push-ups) that calculates relative strength against a shifting bodyweight baseline.
-* **Localized Database:** Pre-seeded with regional staples and quick-commerce private labels.
-* **Custom Recipe Calculator:** Dynamically builds macro profiles for multi-ingredient regional bases (such as Makhani gravies or hung curd marinades).
-* **Minimalist UI:** Built with strict grid layouts, system theme syncing, and functional micro-interactions.
-* **Local-First Architecture:** All user data, workout logs, and custom recipes are persisted to the browser's localStorage via Zustand.
+## Run it
 
-## Tech Stack
-* React 18 + TypeScript + Vite
-* Zustand (State management with Persist Middleware)
-* Tailwind CSS (Styling)
-* Framer Motion (Structural animations)
-* Lucide React (Icons)
+```bash
+npm install
+npm run dev
+```
+
+Open the printed URL (usually http://localhost:5173).
+
+## Build for production
+
+```bash
+npm run build
+npm run preview
+```
+
+## Features
+
+- **Macro tracking** against editable daily targets, grouped by meal slot.
+- **Localized food DB** — Gokul/Amul/Mother Dairy lines, loose paneer, Zepto Farmers Market produce, Blinkit own-brand staples, ragi/bajra flours, prep bases.
+- **Invoice console** — paste Blinkit/Zepto receipt text or JSON; the adapter chain parses, fuzzy-matches against the DB with confidence scores, and bulk-logs.
+- **Recipe builder** — compose multi-ingredient bases with cooked-yield-aware per-100 g macros; save and log.
+- **Strength-to-weight engine** — `((BW + added) / BW) × volumeRatio` per session; volume ratio is rep-based so dropping bodyweight at flat output raises your relative score.
+- **iOS-feel motion** — spring cubic-beziers, press-scale feedback, reduced-motion respected. Haptics via the Web Vibration API (Android Chrome; iOS Safari ignores it silently).
+
+## Data model
+
+See `src/types.ts`. State persists under the `nc-store` localStorage key; theme under `nc-theme`.
