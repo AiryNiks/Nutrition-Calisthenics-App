@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-cream text-slate-800 antialiased dark:bg-charcoal dark:text-slate-200;
+    font-feature-settings: 'tnum' 1; /* tabular numerals for data-dense grids */
+  }
+
+  ::selection {
+    @apply bg-emerald-200/60 dark:bg-emerald-500/30;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    @apply outline-none;
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  button:focus-visible {
+    @apply ring-1 ring-emerald-500/60 dark:ring-emerald-400/60;
+  }
+}
+
+@layer components {
+  /* Thin crisp scrollbars for dense panels */
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(148 163 184 / 0.4) transparent;
+  }
+  .scroll-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scroll-thin::-webkit-scrollbar-thumb {
+    background: rgb(148 163 184 / 0.4);
+    border-radius: 3px;
+  }
+
+  /* iOS-style press feedback: subtle scale + opacity, spring release */
+  .pressable {
+    transition:
+      transform 0.18s cubic-bezier(0.32, 0.72, 0, 1),
+      opacity 0.18s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .pressable:active {
+    transform: scale(0.97);
+    opacity: 0.85;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
